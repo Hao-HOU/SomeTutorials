@@ -1,6 +1,7 @@
 package spittr.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -8,6 +9,7 @@ import spittr.domain.Spittle;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,9 +29,10 @@ public class JdbcSpittleRepository implements SpittleRepository {
                 "select id, message, created_at, latitude, longitude" +
                         " from Spittle" +
                         " where id < ?" +
-                        " order by created_at desc limit 20",
+                        " order by created_at desc limit ?",
                 new SpittleRowMapper(),
-                max
+                max,
+                count
         );
     }
 
@@ -45,13 +48,18 @@ public class JdbcSpittleRepository implements SpittleRepository {
 
     @Override
     public Spittle findOne(long id) {
-        return jdbc.queryForObject(
-                "select id, message, created_at, latitude, longitude" +
-                        " from Spittle" +
-                        " where id = ?",
-                new SpittleRowMapper(),
-                id
-        );
+        try {
+            return jdbc.queryForObject(
+                    "select id, message, created_at, latitude, longitude" +
+                            " from Spittle" +
+                            " where id = ?",
+                    new SpittleRowMapper(),
+                    id
+            );
+        } catch (EmptyResultDataAccessException e) {
+            String message = e.getMessage();
+            return new Spittle(message,new Date());
+        }
     }
 
     @Override
@@ -67,6 +75,7 @@ public class JdbcSpittleRepository implements SpittleRepository {
     }
 
     private static class SpittleRowMapper implements RowMapper<Spittle> {
+        @Override
         public Spittle mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Spittle(
                     rs.getLong("id"),

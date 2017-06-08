@@ -85,7 +85,8 @@ public class SpittleControllerTest {
         )
                 .andExpect(redirectedUrl("/spittles"));
 
-        verify(mockRepository, atLeastOnce()).save(new Spittle(null, "Hello World", new Date(), 28.4159649, -81.5811668));
+        verify(mockRepository, atLeastOnce())
+                .save(new Spittle(null, "Hello World", new Date(), 28.4159649, -81.5811668));
     }
 
     private List<Spittle> createSpittleList(int count) {
