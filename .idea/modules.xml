@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/mess/mess.iml" filepath="$PROJECT_DIR$/mess/mess.iml" />
       <module fileurl="file://$PROJECT_DIR$/spitter/spitter.iml" filepath="$PROJECT_DIR$/spitter/spitter.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-framework/spring-framework.iml" filepath="$PROJECT_DIR$/spring-framework/spring-framework.iml" />
     </modules>

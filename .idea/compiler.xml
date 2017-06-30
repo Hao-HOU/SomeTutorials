@@ -6,14 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="mess" />
         <module name="spitter" />
         <module name="spring-framework" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="mess" target="1.8" />
       <module name="spitter" target="1.8" />
       <module name="spring-framework" target="1.8" />
       <module name="SpringiA4" target="1.8" />
+      <module name="wms-web" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
