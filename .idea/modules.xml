@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/mess/mess.iml" filepath="$PROJECT_DIR$/mess/mess.iml" />
       <module fileurl="file://$PROJECT_DIR$/spitter/spitter.iml" filepath="$PROJECT_DIR$/spitter/spitter.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-framework/spring-framework.iml" filepath="$PROJECT_DIR$/spring-framework/spring-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springmvc/springmvc.iml" filepath="$PROJECT_DIR$/springmvc/springmvc.iml" />
     </modules>
   </component>
 </project>
