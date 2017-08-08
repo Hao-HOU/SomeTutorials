@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/mess" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/simple" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spitter" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spring-framework" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/springmvc" charset="UTF-8" />
