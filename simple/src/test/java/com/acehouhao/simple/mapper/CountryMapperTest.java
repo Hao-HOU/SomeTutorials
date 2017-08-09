@@ -15,28 +15,16 @@ import java.util.List;
 /**
  * Created by Hao HOU on 2017/8/8.
  */
-public class CountryMapperTest {
-    private static SqlSessionFactory sqlSessionFactory;
-
-    @BeforeClass
-    public static void init() {
-        try {
-            Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-            reader.close();
-        } catch (IOException ignore) {
-            ignore.printStackTrace();
-        }
-    }
+public class CountryMapperTest extends BaseMapperTest{
 
     @Test
     public void testSelectAll() {
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = getSqlSession();
         try {
-            List<Country> countryList = sqlSession.selectList("selectAll");
+            List<Country> countryList = sqlSession.selectList("com.acehouhao.simple.mapper.CountryMapper.selectAll");
             printCountryList(countryList);
         } finally {
-            sqlSession.clearCache();
+            sqlSession.close();
         }
     }
 

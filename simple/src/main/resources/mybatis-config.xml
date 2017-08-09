@@ -10,7 +10,7 @@
         <!--&lt;!&ndash; Sets the number of seconds the driver will wait for a response from the database &ndash;&gt;-->
         <!--<setting name="defaultStatementTimeout" value="3000"/>-->
         <!--&lt;!&ndash; Enables automatic mapping from classic database column names A_COLUMN to camel case classic Java property names aColumn &ndash;&gt;-->
-        <!--<setting name="mapUnderscoreToCamelCase" value="true"/>-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
         <!--&lt;!&ndash; Allows JDBC support for generated keys. A compatible driver is required.-->
         <!--This setting forces generated keys to be used if set to true,-->
          <!--as some drivers deny compatibility but still work &ndash;&gt;-->
@@ -38,7 +38,14 @@
     </environments>
 
     <mappers>
-        <mapper resource="com/acehouhao/simple/mapper/CountryMapper.xml"/>
+        <!--<mapper resource="com/acehouhao/simple/mapper/CountryMapper.xml"/>-->
+        <!--<mapper resource="com/acehouhao/simple/mapper/UserMapper.xml"/>-->
+        <!--<mapper resource="com/acehouhao/simple/mapper/RoleMapper.xml"/>-->
+        <!--<mapper resource="com/acehouhao/simple/mapper/PrivilegeMapper.xml"/>-->
+        <!--<mapper resource="com/acehouhao/simple/mapper/UserRoleMapper.xml"/>-->
+        <!--<mapper resource="com/acehouhao/simple/mapper/RolePrivilegeMapper.xml"/>-->
+        <!--上面的配置可以简单配置如下-->
+        <package name="com.acehouhao.simple.mapper"/>
     </mappers>
 
 </configuration>
