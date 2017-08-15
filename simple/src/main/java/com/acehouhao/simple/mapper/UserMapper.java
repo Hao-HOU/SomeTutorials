@@ -5,6 +5,7 @@ import com.acehouhao.simple.model.SysUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Hao HOU on 2017/8/8.
@@ -32,4 +33,10 @@ public interface UserMapper {
     int updateByIdSelective(SysUser sysUser);
 
     SysUser selectByIdOrUserName(SysUser sysUser);
+
+    List<SysUser> selectByIdList(List<Long> idList);
+
+    int insertList(List<SysUser> userList);
+
+    int updateByMap(Map<String, Object> map);
 }

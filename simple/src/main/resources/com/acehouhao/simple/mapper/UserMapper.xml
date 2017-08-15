@@ -87,26 +87,72 @@
         INNER JOIN sys_role r ON ur.role_id = r.id
         WHERE u.id = #{userId} AND r.enabled = #{enabled}
     </select>
+    <!--<select id="selectByUser" resultType="com.acehouhao.simple.model.SysUser">-->
+        <!--SELECT id,-->
+            <!--user_name userName,-->
+            <!--user_password userPassword,-->
+            <!--user_email userEmail,-->
+            <!--user_info userInfo,-->
+            <!--head_img headImg,-->
+            <!--create_time createTime-->
+        <!--FROM sys_user-->
+        <!--WHERE 1 = 1-->
+        <!--<if test="userName != null and userName != ''">-->
+            <!--AND user_name LIKE CONCAT('%', #{userName}, '%')-->
+        <!--</if>-->
+        <!--<if test="userEmail != null and userEmail != ''">-->
+            <!--AND user_email = #{userEmail}-->
+        <!--</if>-->
+    <!--</select>-->
+
+    <!--p75页-->
     <select id="selectByUser" resultType="com.acehouhao.simple.model.SysUser">
         SELECT id,
-            user_name userName,
-            user_password userPassword,
-            user_email userEmail,
-            user_info userInfo,
-            head_img headImg,
-            create_time createTime
+        user_name userName,
+        user_password userPassword,
+        user_email userEmail,
+        user_info userInfo,
+        head_img headImg,
+        create_time createTime
         FROM sys_user
-        WHERE 1 = 1
-        <if test="userName != null and userName != ''">
-            AND user_name LIKE CONCAT('%', #{userName}, '%')
-        </if>
-        <if test="userEmail != null and userEmail != ''">
-            AND user_email = #{userEmail}
-        </if>
+        <where>
+            <if test="userName != null and userName != ''">
+                AND user_name LIKE concat('%', #{userName}, '%')
+            </if>
+            <if test="userEmail != null and userEmail != ''">
+                AND user_email = #{userEmail}
+            </if>
+        </where>
     </select>
+    <!--<update id="updateByIdSelective">-->
+        <!--UPDATE sys_user-->
+        <!--SET-->
+        <!--<if test="userName != null and userName != ''">-->
+            <!--user_name = #{userName},-->
+        <!--</if>-->
+        <!--<if test="userPassword != null and userPassword != ''">-->
+            <!--user_password = #{userPassword},-->
+        <!--</if>-->
+        <!--<if test="userEmail != null and userEmail != ''">-->
+            <!--user_email = #{userEmail},-->
+        <!--</if>-->
+        <!--<if test="userInfo != null and userInfo != ''">-->
+            <!--user_info = #{userInfo},-->
+        <!--</if>-->
+        <!--<if test="headImg != null and headImg != ''">-->
+            <!--head_img = #{headImg, jdbcType=BLOB},-->
+        <!--</if>-->
+        <!--<if test="createTime != null and createTime != ''">-->
+            <!--create_time = #{createTime, jdbcType=TIMESTAMP},-->
+        <!--</if>-->
+        <!--id = #{id}-->
+        <!--WHERE id = #{id}-->
+    <!--</update>-->
+
+    <!--p76页-->
     <update id="updateByIdSelective">
         UPDATE sys_user
-        SET
+        <set>
         <if test="userName != null and userName != ''">
             user_name = #{userName},
         </if>
@@ -126,6 +172,7 @@
             create_time = #{createTime, jdbcType=TIMESTAMP},
         </if>
         id = #{id}
+        </set>
         WHERE id = #{id}
     </update>
     <select id="selectByIdOrUserName" resultType="com.acehouhao.simple.model.SysUser">
@@ -150,4 +197,38 @@
             </otherwise>
         </choose>
     </select>
+    <select id="selectByIdList" resultType="com.acehouhao.simple.model.SysUser">
+        SELECT id,
+            user_name userName,
+            user_password userPassword,
+            user_email userEmail,
+            user_info userInfo,
+            head_img headImg,
+            create_time createTime
+        FROM sys_user
+        WHERE id IN
+        <foreach collection="list" open="(" close=")" separator="," item="id" index="i">
+            #{id}
+        </foreach>
+    </select>
+    <insert id="insertList" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user(
+        user_name, user_password, user_email,
+            user_info, head_img, create_time
+        ) VALUES
+            <foreach collection="list" item="user" separator=",">
+                (
+                #{user.userName}, #{user.userPassword}, #{user.userEmail}, #{user.userInfo},
+                #{user.headImg, jdbcType=BLOB}, #{user.createTime, jdbcType=TIMESTAMP}
+                )
+            </foreach>
+    </insert>
+    <update id="updateByMap">
+        UPDATE sys_user
+        SET
+            <foreach collection="_parameter" item="val" index="key" separator=",">
+                ${key} = #{val}
+            </foreach>
+        WHERE id = #{id}
+    </update>
 </mapper>

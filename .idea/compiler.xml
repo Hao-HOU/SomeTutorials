@@ -15,6 +15,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="mess" target="1.8" />
+      <module name="shiro" target="1.8" />
       <module name="simple" target="1.8" />
       <module name="spitter" target="1.8" />
       <module name="spring-framework" target="1.8" />
