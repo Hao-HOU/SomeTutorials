@@ -1,6 +1,7 @@
 package com.acehouhao.simple.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Hao HOU on 2017/8/8.
@@ -13,6 +14,26 @@ public class SysUser {
     private String userInfo;
     private byte[] headImg;
     private Date createTime;
+
+    private SysRole role;
+
+    private List<SysRole> roleList;
+
+    public List<SysRole> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<SysRole> roleList) {
+        this.roleList = roleList;
+    }
+
+    public SysRole getRole() {
+        return role;
+    }
+
+    public void setRole(SysRole role) {
+        this.role = role;
+    }
 
     public Long getId() {
         return id;

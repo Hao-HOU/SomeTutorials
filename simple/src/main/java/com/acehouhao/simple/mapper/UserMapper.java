@@ -39,4 +39,14 @@ public interface UserMapper {
     int insertList(List<SysUser> userList);
 
     int updateByMap(Map<String, Object> map);
+
+    SysUser selectUserAndRoleById(Long id);
+
+    SysUser selectUserAndRoleById2(Long id);
+
+    SysUser selectUserAndRoleByIdSelect(Long id);
+
+    List<SysUser> selectAllUserAndRoles();
+
+    SysUser selectAllUserAndRolesSelect(Long id);
 }

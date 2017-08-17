@@ -29,4 +29,12 @@ public interface RoleMapper {
     @ResultMap("roleResultMap")
     @Select("select * from sys_role")
     List<SysRole> selectAll();
+
+    int selectRoleById(Long id);
+
+    List<SysRole> selectAllRoleAndPrivileges();
+
+    List<SysRole> selectRoleByUserId(Long id);
+
+    List<SysRole> selectRoleByUserIdChoose(Long userId);
 }

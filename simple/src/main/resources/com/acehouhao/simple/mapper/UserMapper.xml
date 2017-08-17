@@ -11,6 +11,25 @@
         <result property="headImg" column="head_img" jdbcType="BLOB"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
+    <resultMap id="userRoleMap" extends="userMap" type="com.acehouhao.simple.model.SysUser">
+        <association property="role" columnPrefix="role_" resultMap="com.acehouhao.simple.mapper.RoleMapper.roleMap"/>
+    </resultMap>
+    <resultMap id="userRoleMapSelect" extends="userMap" type="com.acehouhao.simple.model.SysUser">
+        <association property="role" fetchType="lazy" column="{id=role_id}"
+                     select="com.acehouhao.simple.mapper.RoleMapper.selectRoleById"/>
+    </resultMap>
+    <resultMap id="userRoleListMap" extends="userMap" type="com.acehouhao.simple.model.SysUser">
+        <collection property="roleList" columnPrefix="role_"
+                    resultMap="com.acehouhao.simple.mapper.RoleMapper.rolePrivilegeListMap"/>
+    </resultMap>
+    <resultMap id="userRoleListMapSelect" extends="userMap"
+               type="com.acehouhao.simple.model.SysUser">
+        <collection property="roleList"
+                    fetchType="lazy"
+                    select="com.acehouhao.simple.mapper.RoleMapper.selectRoleByUserId"
+                    column="{userId=id}"/>
+    </resultMap>
+
     <select id="selectById" resultMap="userMap">
         SELECT * FROM sys_user WHERE id = #{id}
     </select>
@@ -231,4 +250,91 @@
             </foreach>
         WHERE id = #{id}
     </update>
+    <select id="selectUserAndRoleById" resultType="com.acehouhao.simple.model.SysUser">
+        SELECT
+            u.id,
+            u.user_name userName,
+            u.user_password userPassword,
+            u.user_email userEmail,
+            u.user_info userInfo,
+            u.head_img headImg,
+            u.create_time createTime,
+            r.id "role.id",
+            r.role_name "role.roleName",
+            r.enabled "role.enabled",
+            r.create_by "role.createBy",
+            r.create_time "role.createTime"
+        FROM sys_user u
+        INNER JOIN sys_user_role ur on u.id = ur.user_id
+        INNER JOIN sys_role r on ur.role_id = r.id
+        WHERE u.id = #{id}
+    </select>
+    <select id="selectUserAndRoleById2" resultMap="userRoleMap">
+        SELECT
+        u.id,
+        u.user_name,
+        u.user_password,
+        u.user_email,
+        u.user_info,
+        u.head_img,
+        u.create_time,
+        r.id role_id,
+        r.role_name role_role_name,
+        r.enabled role_enabled,
+        r.create_by role_create_by,
+        r.create_time role_create_time
+        FROM sys_user u
+        INNER JOIN sys_user_role ur on u.id = ur.user_id
+        INNER JOIN sys_role r on ur.role_id = r.id
+        WHERE u.id = #{id}
+    </select>
+    <select id="selectUserAndRoleByIdSelect" resultMap="userRoleMapSelect">
+        SELECT
+            u.id,
+            u.user_name,
+            u.user_password,
+            u.user_email,
+            u.user_info,
+            u.head_img,
+            u.create_time,
+            ur.role_id
+        FROM sys_user u
+            INNER JOIN sys_user_role ur on u.id = ur.user_id
+        WHERE u.id = #{id}
+    </select>
+    <select id="selectAllUserAndRoles" resultMap="userRoleListMap">
+        SELECT
+        u.id,
+        u.user_name,
+        u.user_password,
+        u.user_email,
+        u.user_info,
+        u.head_img,
+        u.create_time,
+        r.id role_id,
+        r.role_name role_role_name,
+        r.enabled role_enabled,
+        r.create_by role_create_by,
+        r.create_time role_create_time,
+        p.id role_privilege_id,
+        p.privilege_name role_privilege_privilege_name,
+        p.privilege_url role_privilege_privilege_url
+        FROM sys_user u
+        INNER JOIN sys_user_role ur on u.id = ur.user_id
+        INNER JOIN sys_role r on ur.role_id = r.id
+        INNER JOIN sys_role_privilege rp on rp.role_id = r.id
+        INNER JOIN sys_privilege p on p.id = rp.privilege_id
+    </select>
+    <select id="selectAllUserAndRolesSelect" resultMap="userRoleListMapSelect">
+        SELECT
+            u.id,
+            u.user_name,
+            u.user_password,
+            u.user_email,
+            u.user_info,
+            u.head_img,
+            u.create_time
+        FROM sys_user u
+        WHERE u.id = #{id}
+    </select>
 </mapper>
