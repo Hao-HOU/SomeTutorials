@@ -8,6 +8,8 @@
 out
 gen
 
+/target
+
 # gradle
 .gradle
 build
